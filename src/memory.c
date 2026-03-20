@@ -1,29 +1,33 @@
 #include "memory.h"
+#include "fifo.h"
 
 int valid_ptr(ptr* p) {
-  if(p->counter != p->iat->guard_counter) return false;
-  if(p == NULL || p->iat == NULL || p->iat->addr == NULL) return false;
-  return true;
+  if(p->counter != p->iat->guard_counter) return 0;
+  if(p == NULL || p->iat == NULL || p->iat->addr == NULL) return 0;
+  return 1;
 }
 
-ptr* get_ptr(unsigned int size) {
+int get_ptr(void* addr, void* p) {
   // find a free iat entry
-  IAT_entry* iat = get_free_iat();
+  IAT_entry* iat = get_free_iat(addr);
 
   // get pointer
-  ptr pointer = { .iat = iat, .counter = iat->counter };
-  return &pointer;
+  ptr pointer = { .iat = iat, .counter = iat->guard_counter };
+
+  p = &pointer;
+
+  return 1;
 }
 
-void* get_addr(ptr* p) {
-  if(valid_ptr(p)) {
-    return p->iat->addr;
+void* get_addr(void* p) {
+  if(valid_ptr((ptr*)p)) {
+    return ((ptr*)p)->iat->addr;
   }
-  return false;
+  return 0;
 }
 
 int kill(ptr* p) {
-  if(!valid_ptr(p)) return false;
+  if(!valid_ptr(p)) return 0;
 
   // increase guard_counter
   p->iat->guard_counter++;
@@ -34,5 +38,5 @@ int kill(ptr* p) {
   // safety check
   p->iat = NULL;
 
-  return true;
+  return 1;
 }

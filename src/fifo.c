@@ -12,7 +12,7 @@ void insert(IAT_entry* iat) {
   tail_iat = iat;
 }
 
-IAT_entry* get_free_iat() {
+IAT_entry* get_free_iat(void* addr) {
   if(head_iat == NULL) {
     tail_iat = NULL;
     IAT_entry* iat = (IAT_entry*)malloc(sizeof(IAT_entry));
@@ -32,6 +32,8 @@ IAT_entry* get_free_iat() {
     head_iat = head_iat->prev_iat;
     head_iat->next_iat = NULL;
   }
+
+  tmp->addr = addr;
   
   return tmp;
 }

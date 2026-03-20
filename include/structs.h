@@ -1,10 +1,12 @@
 #ifndef STRUCTS_H
+#include <stddef.h>
+#include <stdlib.h>
 
 typedef struct INDIRECT_ADDRESS_TABLE_ENTRY {
   void* addr;
   unsigned int guard_counter;
-  IAT_entry* next_iat;
-  IAT_entry* prev_iat;
+  void* next_iat;
+  void* prev_iat;
 } IAT_entry;
 
 typedef struct PTR {

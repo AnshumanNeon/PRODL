@@ -2,9 +2,10 @@
 
 #include "structs.h"
 
-int member(IAT_entry* iat, unsigned int counter, void* addr);
+int member(ptr* p);
 
-ptr* get_ptr(unsigned int size);
+int get_ptr(void* addr, void* p);
+void* get_addr(void* p);
 int kill(ptr* p);
 
 #define MEMORY_H
