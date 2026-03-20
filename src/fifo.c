@@ -1,43 +1,45 @@
 #include "fifo.h"
 
 void insert(IAT_entry* iat) {
-  node* temp_node;
-  
-  if(iat == NULL) {
-    temp_node = (node*)malloc(sizeof(node));
-    temp_node->next_node = NULL;
-  }
-  else {
-    temp_node = iat;
-  }
+  iat->addr = NULL;
+  iat->prev_iat = NULL;
+  iat->next_iat = NULL;
 
-  if(rear_node == NULL) {
-    head_node = temp_node;
-    rear_node = temp_node;
+  if(tail_iat != NULL) {
+    tail_iat->next_iat = iat;
+    iat->prev_iat = tail_iat;
   }
-  else {
-    node* tmp = rear_node;
-    rear_node = temp_node;
-    rear_node->next_node = tmp;
-  }
+  tail_iat = iat;
 }
 
 IAT_entry* get_free_iat() {
-  if(head_node == NULL) {
-    rear_node = front_node;
-    return;
+  if(head_iat == NULL) {
+    tail_iat = NULL;
+    IAT_entry* iat = (IAT_entry*)malloc(sizeof(IAT_entry));
+    iat->guard_counter = 0;
+    insert(iat);
+    head_iat = tail_iat;
+    head_iat->next_iat = NULL;
+  }
+  
+  IAT_entry* tmp = head_iat;
+
+  if(head_iat == tail_iat) {
+    head_iat = NULL;
+    tail_iat = NULL;
   }
   else {
-    node* temp_node = head_node;
-    head_node = head_node->next_node;
-    return &temp_node->entry;
+    head_iat = head_iat->prev_iat;
+    head_iat->next_iat = NULL;
   }
+  
+  return tmp;
 }
 
 void clean() {
-  while(rear_node != NULL) {
-    node* tmp = rear_node;
-    rear_node = rear_node->next_node;
+  while(tail_iat != NULL) {
+    IAT_entry* tmp = tail_iat;
+    tail_iat = tail_iat->next_iat;
     free(tmp);
   }
 }

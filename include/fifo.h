@@ -2,13 +2,12 @@
 
 #include "structs.h"
 
-typedef struct IAT_NODE {
-  IAT_entry entry;
-  node* next_node;
-} node;
+void insert(IAT_entry* iat);
+IAT_entry* get_free_iat();
+void clean();
 
-node* head_node;
-node* tail_node;
+IAT_entry* head_iat;
+IAT_entry* tail_iat;
 
 #define FIFO_H
 #endif
