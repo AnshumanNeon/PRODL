@@ -4,6 +4,12 @@ Here i have implemented the memory model described by Antonio Kreczmar, Universi
 
 The project is work in progress, contributions are welcome.
 
+## Installation
+
+Clone the repo and run the Makefile by running `make` command.
+
+The project by default uses the gcc-9 compiler. If you'd like to use some other compiler, then change the `compiler` variable in the Makefile.
+
 ## References
 
 - Programmed Deallocation without Dangling Reference, Gianna Cioni and Antonio Kreczmar
