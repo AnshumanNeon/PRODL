@@ -36,6 +36,7 @@ IAT_entry* get_free_iat() {
   return tmp;
 }
 
+// make sure all iat entries (free or not) are pushed back into the free list so that they can be freed
 void clean() {
   while(tail_iat != NULL) {
     IAT_entry* tmp = tail_iat;

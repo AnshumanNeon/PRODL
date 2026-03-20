@@ -1,26 +1,38 @@
 #include "memory.h"
 
-int member(IAT_entry* iat, unsigned int counter, void* addr) {
-  if(counter != iat->guard_counter) return false;
-
-  addr = iat->addr;
+int valid_ptr(ptr* p) {
+  if(p->counter != p->iat->guard_counter) return false;
+  if(p == NULL || p->iat == NULL || p->iat->addr == NULL) return false;
   return true;
 }
 
-int alloc(unsigned int size) {
+ptr* get_ptr(unsigned int size) {
   // find a free iat entry
+  IAT_entry* iat = get_free_iat();
 
-  // allocate and shit
+  // get pointer
+  ptr pointer = { .iat = iat, .counter = iat->counter };
+  return &pointer;
+}
+
+void* get_addr(ptr* p) {
+  if(valid_ptr(p)) {
+    return p->iat->addr;
+  }
+  return false;
 }
 
 int kill(ptr* p) {
-  if(p == NULL) return false;
+  if(!valid_ptr(p)) return false;
 
-  if(p->counter != p->iat.guard_counter) return false;
-
-  p->iat.guard_counter++;
-
+  // increase guard_counter
+  p->iat->guard_counter++;
+  
   // put iat into free list
+  insert(p->iat);
 
-  // last used procedures
+  // safety check
+  p->iat = NULL;
+
+  return true;
 }

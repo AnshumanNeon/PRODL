@@ -12,6 +12,5 @@ typedef struct PTR {
   unsigned int counter;
 } ptr;
 
-
 #define STRUCTS_H
 #endif
