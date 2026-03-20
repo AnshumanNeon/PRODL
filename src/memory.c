@@ -25,6 +25,12 @@ void* get_addr(void* p) {
   return 0;
 }
 
+int alloc(unsigned int size, void* p) {
+  if (get_ptr(malloc(size), p)) return 1;
+
+  return 0;
+}
+
 int kill(void* p) {
   if(!valid_ptr((ptr*)p)) return 0;
 

@@ -2,14 +2,13 @@
 #include "memory.h"
 
 int main() {
-  void* a = malloc(16);
-  *(int*)a = 4;
-  
-  get_ptr(a, a);
+  int a = 4;
+  alloc(16, &a);
+  DEREF(&a, int) = 2;
 
-  printf("%d\n", *((int*)get_addr(a)));
+  printf("%d\n", *((int*)get_addr(&a)));
 
-  kill(a);
+  kill(&a);
   clean();
 
   return 0;
