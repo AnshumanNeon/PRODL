@@ -1,12 +1,13 @@
 #ifndef MEMORY_H
 
 #include "structs.h"
+#include "fifo.h"
 
 int member(ptr* p);
 
 int get_ptr(void* addr, void* p);
 void* get_addr(void* p);
-int kill(ptr* p);
+int kill(void* p);
 
 #define MEMORY_H
 #endif

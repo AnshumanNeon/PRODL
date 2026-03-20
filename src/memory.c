@@ -1,5 +1,4 @@
 #include "memory.h"
-#include "fifo.h"
 
 int valid_ptr(ptr* p) {
   if(p->counter != p->iat->guard_counter) return 0;
@@ -26,17 +25,17 @@ void* get_addr(void* p) {
   return 0;
 }
 
-int kill(ptr* p) {
-  if(!valid_ptr(p)) return 0;
+int kill(void* p) {
+  if(!valid_ptr((ptr*)p)) return 0;
 
   // increase guard_counter
-  p->iat->guard_counter++;
+  ((ptr*)p)->iat->guard_counter++;
   
   // put iat into free list
-  insert(p->iat);
+  insert(((ptr*)p)->iat);
 
   // safety check
-  p->iat = NULL;
+  ((ptr*)p)->iat = NULL;
 
   return 1;
 }

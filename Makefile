@@ -14,7 +14,11 @@ $(build_dir)/$(target):
 	mkdir -p $(build_dir)
 	$(compiler) $(compiler_flags) -I$(include_dir) $(src_files) test/test.c -o $@
 
+debug:
+	mkdir -p $(build_dir)
+	$(compiler) $(compiler_flags) -g -I$(include_dir) $(src_files) test/test.c -o $@
+
 clean:
 	rm -rf $(build_dir)
 
-.PHONY: $(build_dir)/$(target) clean
+.PHONY: $(build_dir)/$(target) clean debug
