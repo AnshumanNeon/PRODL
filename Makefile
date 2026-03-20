@@ -16,7 +16,7 @@ $(build_dir)/$(target):
 
 debug:
 	mkdir -p $(build_dir)
-	$(compiler) $(compiler_flags) -g -I$(include_dir) $(src_files) test/test.c -o $@
+	$(compiler) $(compiler_flags) -g -I$(include_dir) $(src_files) test/test.c -o $(build_dir)/$(target)
 
 clean:
 	rm -rf $(build_dir)

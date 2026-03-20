@@ -1,8 +1,10 @@
 #include "memory.h"
 
 int valid_ptr(ptr* p) {
+  if(!p) return 0;
+  if(!p->iat) return 0;
+  if(!p->iat->addr) return 0;
   if(p->counter != p->iat->guard_counter) return 0;
-  if(p == NULL || p->iat == NULL || p->iat->addr == NULL) return 0;
   return 1;
 }
 
@@ -11,9 +13,7 @@ int get_ptr(void* addr, void* p) {
   IAT_entry* iat = get_free_iat(addr);
 
   // get pointer
-  ptr pointer = { .iat = iat, .counter = iat->guard_counter };
-
-  p = &pointer;
+  *((ptr*)p) = (ptr){ .iat = iat, .counter = iat->guard_counter };
 
   return 1;
 }

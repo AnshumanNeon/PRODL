@@ -2,8 +2,8 @@
 #include "memory.h"
 
 int main() {
-  int* a = (int*)malloc(16);
-  *a = 4;
+  void* a = malloc(16);
+  *(int*)a = 4;
   
   get_ptr(a, a);
 

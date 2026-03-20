@@ -3,8 +3,8 @@
 #include <stdlib.h>
 
 typedef struct INDIRECT_ADDRESS_TABLE_ENTRY {
-  void* addr;
   unsigned int guard_counter;
+  void* addr;
   void* next_iat;
   void* prev_iat;
 } IAT_entry;
