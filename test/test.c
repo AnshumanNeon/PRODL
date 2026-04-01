@@ -2,11 +2,11 @@
 #include "memory.h"
 
 int main() {
-  int a = 4;
-  alloc(16, &a);
-  DEREF(&a, int) = 2;
+  char a = '1';
+  alloc(4, &a);
+  DEREF(&a, char) = 'a';
 
-  printf("%d\n", *((int*)get_addr(&a)));
+  printf("%c\n", DEREF(&a, char));
 
   kill(&a);
   clean();

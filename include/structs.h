@@ -5,8 +5,8 @@
 typedef struct INDIRECT_ADDRESS_TABLE_ENTRY {
   unsigned int guard_counter;
   void* addr;
-  void* next_iat;
-  void* prev_iat;
+  struct INDIRECT_ADDRESS_TABLE_ENTRY* next_iat;
+  struct INDIRECT_ADDRESS_TABLE_ENTRY* prev_iat;
 } IAT_entry;
 
 typedef struct PTR {
